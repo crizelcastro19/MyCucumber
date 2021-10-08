@@ -10,6 +10,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import pages.LoginPages;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,17 +36,18 @@ public class LoginSteps extends BaseUtil {
         List<User> users = new ArrayList<User>();
         users = table.asList(User.class);
 
+        LoginPages pages = new LoginPages(base.Driver);
         for (User user:users) {
-            base.Driver.findElement(By.name("UserName")).sendKeys(user.username);
-            base.Driver.findElement(By.name("Password")).sendKeys(user.password);
+            pages.Login(user.username, user.password);
+
         }
     }
 
 
     @And("^I click button$")
     public void iClickButton() {
-
-        base.Driver.findElement(By.name("Login")).submit();
+        LoginPages pages = new LoginPages(base.Driver);
+        pages.ClickLogin();
 
     }
 
